@@ -13,3 +13,6 @@ char hrac1[15];
 char hrac2[15];
 int velkostpola = 0;
 
+int gameover = 0;
+int pocetTahov = 0;
+

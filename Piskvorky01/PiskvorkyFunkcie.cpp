@@ -4,25 +4,24 @@
 #include <string.h>
 
 char** HraciePole(int velkostpola) 
-{
-	char** pole = (char**)malloc(velkostpola * sizeof(char*));
+{ 
+	// memory allocation
+	char** pole = (char**)malloc(velkostpola * sizeof(char*)); 
 	for (int i = 0; i < velkostpola; i = i + 1)
 	{
-		pole[i] = (char*)malloc(velkostpola * sizeof(char));
+		pole[i] = (char*)malloc(velkostpola * sizeof(char)); 
 	}
 
+	// naplnenie pola '*'
 	for (int i = 0; i < velkostpola; i = i + 1)
 	{
-		printf("\n");
-
 		for (int j = 0; j < velkostpola; j = j + 1)
 		{
 			pole[i][j] = '*';
-
-			printf("%c ", pole[i][j]);
 		}
 	}
 
+	vypisPola(pole, velkostpola);
 	return pole;
 }
 
@@ -82,9 +81,10 @@ void zmenHraca(int* vyberHraca)
 	}
 }
 
-int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda)
+int vyhralNiekto(char** pole, int velkostpola)
 {
-	for (int i = 0; i < velkostpola; i = i + 1) //V riadku
+	// V riadku
+	for (int i = 0; i < velkostpola; i = i + 1)
 	{
 		for (int j = 0; j < velkostpola - 2; j = j + 1)
 		{
@@ -97,7 +97,9 @@ int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda)
 			}
 		}
 	}
-	for (int i = 0; i < velkostpola - 2; i = i + 1) //V stlpcoch
+
+	// V stlpcoch
+	for (int i = 0; i < velkostpola - 2; i = i + 1)
 	{
 		for (int j = 0; j < velkostpola; j = j + 1)
 		{
@@ -110,7 +112,9 @@ int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda)
 			}
 		}
 	}
-	for (int i = 0; i < velkostpola - 2; i = i + 1) //Diagonalne dole doprava
+
+	// Diagonalne dole doprava
+	for (int i = 0; i < velkostpola - 2; i = i + 1)
 	{
 		for (int j = 0; j < velkostpola - 2; j = j + 1)
 		{
@@ -123,7 +127,9 @@ int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda)
 			}
 		}
 	}
-	for (int i = 2; i < velkostpola; i = i + 1) //Diagonalne hore doprava
+
+	// Diagonalne hore doprava
+	for (int i = 2; i < velkostpola; i = i + 1)
 	{
 		for (int j = 0; j < velkostpola - 2; j = j + 1)
 		{
@@ -136,14 +142,17 @@ int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda)
 			}
 		}
 	}
-	for (int i = 0; i < velkostpola; i = i + 1) //Cyklus ziadne *
+
+	// Skontrolovanie nezadanych policok od uzivatela
+	int pocetPolicok = velkostpola * velkostpola;
+	for (int i = 0; i < velkostpola; i = i + 1) 
 	{
 		for (int j = 0; j < velkostpola; j = j + 1)
 		{
 			if (pole[i][j] != '*')
 			{
-				ziadnaHviezda = ziadnaHviezda - 1;
-				if (ziadnaHviezda == 0)
+				pocetPolicok = pocetPolicok - 1;
+				if (pocetPolicok == 0)
 				{
 					return 2;
 				}
@@ -155,6 +164,8 @@ int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda)
 
 void leaderBoard(char* hrac, int bod) 
 {
+
+	// Otvorenie suboru
 	FILE* file = fopen("D:\\leaderboard.txt", "r+");
 	if (file == NULL) 
 	{
@@ -162,6 +173,7 @@ void leaderBoard(char* hrac, int bod)
 		return;
 	}
 
+	// Nacitanie zo suboru
 	Hrac hraci[100];
 	int pocetHracov = 0;
 	while (fscanf(file, "%s %d", hraci[pocetHracov].meno, &hraci[pocetHracov].skore) != EOF)
@@ -169,6 +181,7 @@ void leaderBoard(char* hrac, int bod)
 		pocetHracov = pocetHracov + 1;
 	}
 
+	// Vyhladanie hraca
 	int i;
 	for (i = 0; i < pocetHracov; i = i + 1)
 	{
@@ -179,6 +192,7 @@ void leaderBoard(char* hrac, int bod)
 		}
 	}
 
+	// Pridanie noveho hraca
 	if (i == pocetHracov)
 	{
 		strcpy(hraci[pocetHracov].meno, hrac);
@@ -186,6 +200,7 @@ void leaderBoard(char* hrac, int bod)
 		pocetHracov = pocetHracov + 1;
 	}
 
+	// Vypis leaderboardu
 	rewind(file);
 	for (i = 0; i < pocetHracov; i = i + 1)
 	{
@@ -197,6 +212,8 @@ void leaderBoard(char* hrac, int bod)
 
 void ukazLeaderboard()
 {
+
+	// Otvorenie subora
 	FILE* file = fopen("D:\\leaderboard.txt", "r+");
 	if (file == NULL)
 	{
@@ -207,11 +224,13 @@ void ukazLeaderboard()
 	Hrac hraci[100];
 	int pocetHracov = 0;
 
+	// Nacitanie hracov do lokalnej pamati
 	while (fscanf(file, "%s %d", hraci[pocetHracov].meno, &hraci[pocetHracov].skore) != EOF)
 	{
 		pocetHracov = pocetHracov + 1;
 	}
 
+	// Vypis top 10 hracov
 	for (int i = 0; i < 10; i = i + 1)
 	{
 		printf("%s %d\n", hraci[i].meno, hraci[i].skore);
@@ -222,6 +241,8 @@ void ukazLeaderboard()
 
 void zoradLeaderborad()
 {
+
+	// Otvorenie suboru
 	FILE* file = fopen("D:\\leaderboard.txt", "r+");
 	if (file == NULL)
 	{
@@ -229,6 +250,7 @@ void zoradLeaderborad()
 		return;
 	}
 
+	// Nacitanie hracov do lokalnej pamati
 	Hrac hraci[100];
 	int pocetHracov = 0;
 
@@ -239,6 +261,7 @@ void zoradLeaderborad()
 
 	bubbleSort(hraci, pocetHracov);
 
+	// Nacitanie hracov do suboru
 	rewind(file);
 	for (int i = 0; i < pocetHracov; i = i + 1)
 	{
@@ -250,10 +273,13 @@ void zoradLeaderborad()
 
 void swap(Hrac* hraci, int i, int j)
 {
+
+	// Vymena skore
 	int temp = hraci[i].skore;
 	hraci[i].skore = hraci[j].skore;
 	hraci[j].skore = temp;
 
+	// Vymena mena
 	char tempString[50];
 	strcpy(tempString, hraci[i].meno);
 	strcpy(hraci[i].meno, hraci[j].meno);
@@ -262,6 +288,8 @@ void swap(Hrac* hraci, int i, int j)
 
 void bubbleSort(Hrac* hraci ,int n)
 {
+
+	// Bubblesort snad jasne ne?
 	int i, j;
 	for (i = 0; i < n - 1; i = i + 1)
 	{

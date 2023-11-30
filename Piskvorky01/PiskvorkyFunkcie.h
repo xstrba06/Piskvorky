@@ -10,7 +10,7 @@ char** HraciePole(int velkostpola);
 void vypisPola(char** pole, int velkostpola);
 void suradniceXY(char** pole, int velkostpola, int vyberHraca);
 void zmenHraca(int* vyberHraca);
-int vyhralNiekto(char** pole, int velkostpola, int ziadnaHviezda);
+int vyhralNiekto(char** pole, int velkostpola);
 void leaderBoard(char* hrac, int bod);
 void ukazLeaderboard();
 void zoradLeaderborad();

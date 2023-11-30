@@ -27,11 +27,12 @@ int main()
 			printf("Vyber velkost hracieho pola od 3 - 20: ");
 			scanf("%d", &velkostpola);
 		}
-		//Vytvorenie Hracieho Pola 
-		char** pole = HraciePole(velkostpola);
+		// Vytvorenie Hracieho Pola 
+		char** pole = HraciePole(velkostpola); // 2d hracie pole [][]
 
+		// nahodny vyber hraca
 		int vyberHraca;
-		srand(time(NULL));
+		srand(time(NULL)); 
 		vyberHraca = rand() % 2;
 
 		if (vyberHraca == 0)
@@ -43,17 +44,14 @@ int main()
 			printf("\n\nZacina %s.\n", hrac2);
 		}
 
-		int gameover = 0;
-		int ziadnaHviezda = velkostpola * velkostpola;
-		int pocetTahov = 0;
-
+		// Vyhral, nevyhral logika
 		while (gameover == 0)
 		{
 			suradniceXY(pole, velkostpola, vyberHraca);
 			zmenHraca(&vyberHraca);
 			vypisPola(pole, velkostpola);
 			pocetTahov = pocetTahov + 1; 
-			gameover = vyhralNiekto(pole, velkostpola, ziadnaHviezda);
+			gameover = vyhralNiekto(pole, velkostpola);
 		}
 		zmenHraca(&vyberHraca);
 
@@ -76,7 +74,8 @@ int main()
 		{
 			printf("\nNikto nevyhral.");
 		}
-
+		
+		// Nova hra, Leaderbord
 		int hra = 1;
 		printf("\nChces zacat novu hru? (1/0) alebo chces ukazat leaderboard? (2): ");
 		scanf("%d", &hra);
