@@ -289,7 +289,7 @@ void swap(Hrac* hraci, int i, int j)
 void bubbleSort(Hrac* hraci ,int n)
 {
 
-	// Bubblesort snad jasne ne?
+	// Bubblesort
 	int i, j;
 	for (i = 0; i < n - 1; i = i + 1)
 	{
